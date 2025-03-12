@@ -43,3 +43,11 @@ app.get('/tasks', async (req, res) => {
 
 // Write an endpoint to create a new task.
 
+app.post('/create',async (req,res)=>{
+    const {title,dueDate,priority,status}=req.body;
+    if (!title || !dueDate || !priority || !status){
+        return res.status(400).json({message:"All fields are required"})
+    }
+    await Task.create({title:title,dueDate:dueDate,priority:priority,status:status})
+    return res.status(201).json({message:"Creation Successfull."})
+})
